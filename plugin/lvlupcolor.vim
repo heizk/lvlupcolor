@@ -6,9 +6,8 @@ function! GetNumLines()
 endfunction
 
 function! CheckColorSwitch()
-	let lines = Lines()
+	let lines = GetNumLines()
 	if lines%g:linesPerColor == 0
-		echo "switching color scheme"
 		let g:scheme = g:darkschemes[(GetNumLines()/g:linesPerColor)%len(g:darkschemes)]
 		execute "colorscheme ".g:scheme
 	endif
