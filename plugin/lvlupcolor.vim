@@ -14,7 +14,7 @@ if !exists("g:lvlupcolor_lines_per_level")
 	if g:lvlupcolor_debug
 		echo "lvlupcolor: using default value for lines per level"
 	endif
-	let g:lvlupcolor_lines_per_level = 10 
+	let g:lvlupcolor_lines_per_level = 100 
 endif
 
 
