@@ -1,4 +1,6 @@
 let g:lvlupcolor_debug = 0
+let g:lvlupcolor_current_scheme = "unset"
+
 
 " set default color g:lvlupcolor_schemes
 if !exists("g:lvlupcolor_schemes")
@@ -36,16 +38,19 @@ function! CheckColorSwitch()
 		let lines = float2nr(log10(lines))
 	endif
 	" lines since last level up
-	let linesSinceLastLevel = lines%g:lvlupcolor_lines_per_level
-	if linesSinceLastLevel == 0
+	let linesToNextLevel = lines%g:lvlupcolor_lines_per_level
+	if linesToNextLevel == 0
 		" pick the next scheme
 		let scheme = g:lvlupcolor_schemes[(lines/g:lvlupcolor_lines_per_level)%len(g:lvlupcolor_schemes)]
 		" try to apply
-		try
-			execute "colorscheme ".scheme
-		catch
-			echom "lvlupcolor: could not set color scheme: ".scheme
-		endtry
+		if scheme != g:lvlupcolor_current_scheme
+			try
+				execute "colorscheme ".scheme
+				let g:lvlupcolor_current_scheme = scheme
+			catch
+				echom "lvlupcolor: could not set color scheme: ".scheme
+			endtry
+		endif
 	endif
 endfunction 
 
